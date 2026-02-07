@@ -27,7 +27,7 @@ module "report_queue" {
 module "load_data_to_s3" {
   source      = "./modules/lambda"
   lambda_name = "load_data_to_s3"
-  handler     = "lambda_handler.main"
+  handler     = "lambda_handler.lambda_handler"
 
   bucket_name = "lambda-source-pmcq"
   key    = "load_to_s3_lambda.zip"
@@ -40,7 +40,7 @@ module "load_data_to_s3" {
 module "report_lambda" {
   source      = "./modules/lambda"
   lambda_name = "report-lambda"
-  handler     = "lambda_handler.main"
+  handler     = "lambda_handler.lambda_handler"
 
   bucket_name = "lambda-source-pmcq"
   key    = "write_report.zip"
