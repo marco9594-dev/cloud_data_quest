@@ -24,28 +24,28 @@ module "report_queue" {
 }
 
 # Load data to S3
-module "load_data_to_s3" {
+module "get_bls_and_data_usa_data" {
   source      = "./modules/lambda"
-  lambda_name = "load_data_to_s3"
-  handler     = "lambda_handler.lambda_handler"
+  lambda_name = "get_bls_and_data_usa_data"
+  handler     = "get_bls_and_data_usa_data.get_bls_and_data_usa_data"
 
   bucket_name = "lambda-source-pmcq"
-  key    = "load_to_s3_lambda.zip"
+  key    = "get_bls_and_data_usa_data.zip"
 
-  name_prefix = "load_data_to_s3"
+  name_prefix = "get_bls_and_data_usa_data"
 }
 
 
-# Lambda 2: Report
-module "report_lambda" {
+# Lambda 2: Report on Data
+module "analyze_bls_and_data_usa_data" {
   source      = "./modules/lambda"
-  lambda_name = "report-lambda"
-  handler     = "lambda_handler.lambda_handler"
+  lambda_name = "analyze_bls_and_data_usa_data"
+  handler     = "analyze_bls_and_data_usa_data.analyze_bls_and_data_usa_data"
 
   bucket_name = "lambda-source-pmcq"
-  key    = "write_report.zip"
+  key    = "analyze_bls_and_data_usa_data.zip"
 
-  name_prefix = "report"
+  name_prefix = "analyze_bls_and_data_usa_data"
 }
 
 # CloudWatch schedule for Lambda 1
@@ -87,4 +87,12 @@ resource "aws_sqs_queue_policy" "allow_s3" {
       }
     ]
   })
+}
+
+# Trigger analyze_bls_and_data_usa_data Lambda from SQS
+resource "aws_lambda_event_source_mapping" "analyze_bls_sqs" {
+  event_source_arn  = module.report_queue.queue_arn
+  function_name     = module.analyze_bls_and_data_usa_data.lambda_arn
+  batch_size        = 1          # number of messages per Lambda invocation
+  enabled           = true
 }

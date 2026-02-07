@@ -126,7 +126,7 @@ def sync_bls_files_to_s3(source_file_list, s3_client, bucket_name, bucket_direct
     # Upload files
     for file_meta in files_to_upload:
         url = file_meta["full_url"]
-        key = f"{bucket_directory}{file_meta['file_name']}"
+        key = f"{bucket_directory}/{file_meta['file_name']}"
 
         with session.get(url, stream=True, headers=api_request_headers) as request:
             request.raise_for_status()
@@ -142,7 +142,7 @@ def sync_bls_files_to_s3(source_file_list, s3_client, bucket_name, bucket_direct
 
     # Delete files
     for fname in files_to_delete:
-        delete_from_s3(s3_client, bucket_name, f"{bucket_directory}{fname}")
+        delete_from_s3(s3_client, bucket_name, f"{bucket_directory}/{fname}")
 
     # Update manifest
     updated_manifest = list(source_dict.values())

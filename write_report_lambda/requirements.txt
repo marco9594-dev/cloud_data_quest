@@ -1,6 +1,0 @@
-pandas
-s3fs
-requests
-beautifulsoup4
-PyYAML
-boto3
