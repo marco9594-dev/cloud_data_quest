@@ -1,0 +1,14 @@
+bureau_labor_statistics_connection_info:
+  base_url: "https://download.bls.gov"
+  directory_extension: "pub/time.series/pr"
+  api_headers:
+    'User-Agent': 'patrickmarcoux594@gmail.com'
+  s3_directory: "bls_data"
+  manifest_log_file: "bls_data/file_log.json"
+data_usa_connection_info:
+  base_url: "https://honolulu-api.datausa.io/tesseract/data.jsonrecords?cube=acs_yg_total_population_1&drilldowns=Year%2CNation&locale=en&measures=Population"
+  s3_directory: "data_usa_data"
+  s3_file_name: "honolulu-api.json"
+aws_s3_connection_info:
+  aws_region: "us-east-2"
+  bucket_name: "cloud-data-quest-926"
