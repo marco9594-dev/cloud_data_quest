@@ -8,3 +8,9 @@ variable "timeout" {
   type        = number
   default     = 60   # default 60 seconds if not overridden
 }
+
+variable "layers" {
+  description = "List of Lambda layer ARNs to attach"
+  type        = list(string)
+  default     = []
+}

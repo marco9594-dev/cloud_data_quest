@@ -4,3 +4,4 @@ requests
 beautifulsoup4
 PyYAML
 boto3
+numpy

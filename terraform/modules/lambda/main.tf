@@ -36,6 +36,8 @@ resource "aws_lambda_function" "this" {
   role          = aws_iam_role.lambda_role.arn
 
   timeout       = var.timeout
+
+  layers        = var.layers
 }
 
 output "lambda_arn" {
