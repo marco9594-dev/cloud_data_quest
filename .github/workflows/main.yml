@@ -34,7 +34,7 @@ jobs:
 
       - name: Upload analyze Lambda
         run: |
-          aws s3 cp analyze_bls_and_data_usa_data.zip s3://lambda-source-pmcq/lambda/analyze_bls_and_data_usa_data.zip
+          aws s3 cp analyze_bls_and_data_usa_data.zip s3://lambda-source-pmcq/analyze_bls_and_data_usa_data.zip
 
       # ---------- Get Lambda ----------
       - name: Build get Lambda
@@ -48,4 +48,4 @@ jobs:
 
       - name: Upload get Lambda
         run: |
-          aws s3 cp get_bls_and_data_usa_data.zip s3://lambda-source-pmcq/lambda/get_bls_and_data_usa_data.zip
+          aws s3 cp get_bls_and_data_usa_data.zip s3://lambda-source-pmcq/get_bls_and_data_usa_data.zip
