@@ -1,0 +1,51 @@
+name: Build and Upload Lambda Packages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      # ---------- Analyze Lambda ----------
+      - name: Build analyze Lambda
+        run: |
+          mkdir analyze_pkg
+          pip install -r requirements.txt --target ./analyze_pkg
+          cp analyze_bls_and_data_usa_data.py analyze_pkg/
+          cp config.yaml analyze_pkg/
+          cp general_functions.py analyze_pkg/
+          cd analyze_pkg && zip -r9 ../analyze_bls_and_data_usa_data.zip . && cd ..
+
+      - name: Upload analyze Lambda
+        run: |
+          aws s3 cp analyze_bls_and_data_usa_data.zip s3://lambda-source-pmcq/lambda/analyze_bls_and_data_usa_data.zip
+
+      # ---------- Get Lambda ----------
+      - name: Build get Lambda
+        run: |
+          mkdir get_pkg
+          pip install -r requirements.txt --target ./get_pkg
+          cp get_bls_and_data_usa_data.py get_pkg/
+          cp config.yaml get_pkg/
+          cp general_functions.py get_pkg/
+          cd get_pkg && zip -r9 ../get_bls_and_data_usa_data.zip . && cd ..
+
+      - name: Upload get Lambda
+        run: |
+          aws s3 cp get_bls_and_data_usa_data.zip s3://lambda-source-pmcq/lambda/get_bls_and_data_usa_data.zip
