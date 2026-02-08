@@ -49,3 +49,8 @@ jobs:
       - name: Upload get Lambda
         run: |
           aws s3 cp get_bls_and_data_usa_data.zip s3://lambda-source-pmcq/get_bls_and_data_usa_data.zip
+
+      # ---------- Upload index.html ----------
+      - name: Upload index.html to S3
+        run: |
+          aws s3 cp index.html s3://cloud-data-quest-926/index.html
