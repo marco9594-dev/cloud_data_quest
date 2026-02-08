@@ -74,29 +74,13 @@ data_usa_connection_info:
   base_url: "https://honolulu-api.datausa.io/tesseract/data.jsonrecords..."
   s3_directory: "data_usa_data"
 
-data_can_be_viewed_via_following_s3_link:
+uploaded_data_can_be_viewed_via_following_s3_link:
   s3_bucket_url: "https://us-east-2.console.aws.amazon.com/s3/buckets/cloud-data-quest-926?region=us-east-2&tab=objects"
 ```
 
 Modify the configuration as needed for your AWS environment and API endpoints.
 
-## Usage
-
-### Local Development
-
-**Fetch and sync data:**
-```python
-from get_bls_and_data_usa_data import get_bls_and_data_usa_data
-result = get_bls_and_data_usa_data({}, {})
-```
-
-**Analyze data:**
-```python
-from analyze_bls_and_data_usa_data import analyze_bls_and_data_usa_data
-result = analyze_bls_and_data_usa_data({}, {})
-```
-
-**Interactive analysis:**
+**To Review the some Example Data Outpus in an Interactive setting:**
 Open `data_analysis_notebook.ipynb` in Jupyter for interactive data exploration and visualization.
 
 ### Deployed on AWS
@@ -115,6 +99,17 @@ terraform apply
 ```bash
 terraform destroy
 ```
+
+## Lambda Deployment
+
+Lambda functions in this project reference zip files that are deployed to an S3 bucket. This allows the Terraform configuration to pull the latest function code without modifying the Lambda modules.
+
+**Automated Deployment:**
+A GitHub Actions workflow automatically packages the Lambda functions into zip files and uploads them to the designated S3 bucket whenever code changes are pushed. This ensures that:
+
+- Lambda function code is always in sync with your repository
+- Deployments are automated and consistent
+- No manual zip file creation is required
 
 ## AWS Resources
 
