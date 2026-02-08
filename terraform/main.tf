@@ -51,9 +51,6 @@ module "analyze_bls_and_data_usa_data" {
 
   timeout     = 180
 
-  layers = [
-    "arn:aws:lambda:us-east-2:336392948345:layer:AWSSDKPandas-Python311:26"
-  ]
 }
 
 # CloudWatch schedule for Lambda 1

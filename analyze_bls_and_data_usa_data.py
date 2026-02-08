@@ -2,8 +2,11 @@ import json
 import csv
 import io
 from collections import defaultdict
+import pprint
 import s3fs
 from general_functions import load_config
+from pprint import pprint
+from tabulate import tabulate
 
 
 def analyze_bls_and_data_usa_data(event, context):
@@ -145,10 +148,14 @@ def analyze_bls_and_data_usa_data(event, context):
     # ---- Return results ----
     # ==========================================================
 
-    print(f"Mean population (2013-2018): {mean_population}")
-    print(f"Std population (2013-2018): {std_population}")
-    print(f"Best year per series: {best_year_per_series}")
-    print(f"Report for PRS30006032 Q01: {report}")
+    pprint(f"Mean population (2013-2018): {mean_population}")
+    pprint(f"Std population (2013-2018): {std_population}")
+
+    print("\n=== Best Year Per Series ===")
+    print(tabulate(best_year_per_series, headers="keys", tablefmt="grid"))
+
+    print("\n=== Report for PRS30006032 Q01 ===")
+    print(tabulate(report, headers="keys", tablefmt="grid"))
     
     return {
         "mean_population_2013_2018": mean_population,
