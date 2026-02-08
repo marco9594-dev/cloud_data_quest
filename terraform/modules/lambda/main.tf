@@ -34,6 +34,8 @@ resource "aws_lambda_function" "this" {
   s3_key    =  var.key
 
   role          = aws_iam_role.lambda_role.arn
+
+  timeout       = var.timeout
 }
 
 output "lambda_arn" {

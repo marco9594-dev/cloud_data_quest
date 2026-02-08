@@ -33,6 +33,8 @@ module "get_bls_and_data_usa_data" {
   key    = "get_bls_and_data_usa_data.zip"
 
   name_prefix = "get_bls_and_data_usa_data"
+
+  timeout     = 180
 }
 
 
@@ -46,6 +48,8 @@ module "analyze_bls_and_data_usa_data" {
   key    = "analyze_bls_and_data_usa_data.zip"
 
   name_prefix = "analyze_bls_and_data_usa_data"
+
+  timeout     = 180
 }
 
 # CloudWatch schedule for Lambda 1
