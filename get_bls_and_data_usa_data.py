@@ -1,4 +1,4 @@
-from general_funtions import *
+from general_functions import *
 
 def get_bls_and_data_usa_data(event, context):
 
