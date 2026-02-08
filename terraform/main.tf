@@ -51,8 +51,8 @@ module "analyze_bls_and_data_usa_data" {
 # CloudWatch schedule for Lambda 1
 module "daily_schedule" {
   source              = "./modules/cloudwatch_schedule"
-  lambda_arn          = module.load_data_to_s3.lambda_arn
-  name_prefix         = "load_data_to_s3"
+  lambda_arn          = module.get_bls_and_data_usa_data.lambda_arn
+  name_prefix         = "get_bls_and_data_usa_data"
   schedule_expression = "rate(1 day)"
 }
 
